@@ -47,28 +47,28 @@
 
                     </x-admin.sidebar-menu-item>
 
-                    {{-- <x-admin.sidebar-menu-item :active="request()->routeIs('admin.posts*')" :dropdown="true">
+                    <x-admin.sidebar-menu-item :active="request()->routeIs('admin.movies*')" :dropdown="true">
 
                         <x-slot name="icon">
                             <x-ri-article-line />
                         </x-slot>
                         <x-slot name="title">
-                            {{ __('Posts') }}
+                            {{ __('Movies') }}
                         </x-slot>
 
                         <x-slot name="submenu">
-                            <x-admin.sidebar-sub-menu-item :href="route('admin.posts')" :active="request()->routeIs('admin.posts')">
-                                View all posts
+                            <x-admin.sidebar-sub-menu-item :href="route('admin.movies')" :active="request()->routeIs('admin.movies')">
+                                View all Movies
                             </x-admin.sidebar-sub-menu-item>
-                            <x-admin.sidebar-sub-menu-item :href="route('admin.posts.create')" :active="request()->routeIs('admin.posts.create')">
-                                Add new post
+                            <x-admin.sidebar-sub-menu-item :href="route('admin.movies.create')" :active="request()->routeIs('admin.movies.create')">
+                                Add new Movie
                             </x-admin.sidebar-sub-menu-item>
-                            <x-admin.sidebar-sub-menu-item :href="route('admin.posts.categories')" :active="request()->routeIs('admin.posts.categories')">
+                            {{-- <x-admin.sidebar-sub-menu-item :href="route('admin.posts.categories')" :active="request()->routeIs('admin.posts.categories')">
                                 Categories
-                            </x-admin.sidebar-sub-menu-item>
+                            </x-admin.sidebar-sub-menu-item> --}}
                         </x-slot>
 
-                    </x-admin.sidebar-menu-item> --}}
+                    </x-admin.sidebar-menu-item>
 
 
 

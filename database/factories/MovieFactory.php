@@ -16,8 +16,16 @@ class MovieFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = \Faker\Factory::create();
+        $faker->addProvider(new \Xylis\FakerCinema\Provider\Movie($faker));
+        $faker->addProvider(new \Faker\Provider\Youtube($faker));
         return [
-            //
+            'title' => $faker->movie,
+            'poster_link' => fake()->imageUrl(500, 750),
+            'synopsis' => fake()->paragraph(1),
+            'release_date' => fake()->date(),
+            'trailer_link' => $faker->youtubeUri(),
+
         ];
     }
 }

@@ -46,11 +46,11 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-                        {{-- @if (auth()->user()->role == 'admin')
+                        @if (auth()->user()->role == 'admin')
                             <x-dropdown-link :href="route('admin')">
                                 {{ __('Admin Panel') }}
                             </x-dropdown-link>
-                        @endif --}}
+                        @endif
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
