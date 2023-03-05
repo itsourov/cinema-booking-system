@@ -27,6 +27,7 @@ class UpdateMovieRequest extends FormRequest
             'poster_link' => ['required', 'string', 'max:255'],
             'trailer_link' => ['required', 'string', 'max:255'],
             'release_date' => ['required', 'date'],
+            'genres' => ['required',],
         ];
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
+use App\Models\Genre;
 use Illuminate\Support\Facades\Redirect;
 
 class MovieController extends Controller
@@ -16,9 +17,11 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $movie = Movie::latest()->paginate(10);
+        $movie = Movie::with('genres')->latest()->paginate(10);
+
+
         return view('admin.movies.index', [
-            'movies' => $movie,
+            'movies' => $movie
         ]);
     }
 
@@ -27,7 +30,10 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return view('admin.movies.create');
+        $genres = Genre::all();
+        return view('admin.movies.create', [
+            'genres' => $genres,
+        ]);
     }
 
     /**
@@ -35,7 +41,8 @@ class MovieController extends Controller
      */
     public function store(StoreMovieRequest $request)
     {
-        Movie::create($request->validated());
+        $movie =  Movie::create($request->validated());
+        $movie->genres()->sync($request->genres);
         return redirect(route('admin.movies'))->with('message', 'Movie submitted');
     }
 
@@ -51,8 +58,10 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
+        $genres = Genre::all();
         return view('admin.movies.edit', [
             'movie' => $movie,
+            'genres' => $genres,
         ]);
     }
 
@@ -61,7 +70,10 @@ class MovieController extends Controller
      */
     public function update(UpdateMovieRequest $request, Movie $movie)
     {
+
         $movie->update($request->validated());
+        $movie->genres()->sync($request->genres);
+
         return redirect(route('admin.movies'))->with('message', 'Movie submitted');
     }
 

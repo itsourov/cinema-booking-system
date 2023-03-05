@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMovieRequest extends FormRequest
+class StoreGenreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +24,9 @@ class StoreMovieRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'synopsis' => ['required', 'string', 'max:255'],
-            'poster_link' => ['required', 'string', 'max:255'],
-            'trailer_link' => ['required', 'string', 'max:255'],
-            'release_date' => ['required', 'date'],
-            'genres' => ['required',],
+            'slug' => ['required', Rule::unique('genres', 'slug')],
+
+            'description' => '',
 
         ];
     }

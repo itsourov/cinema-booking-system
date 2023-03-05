@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Movie>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Genre>
  */
-class MovieFactory extends Factory
+class GenreFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,14 +18,12 @@ class MovieFactory extends Factory
     {
         $faker = \Faker\Factory::create();
         $faker->addProvider(new \Xylis\FakerCinema\Provider\Movie($faker));
-
+        $title = $faker->movieGenre;
         return [
-            'title' => $faker->movie,
-            'poster_link' => fake()->imageUrl(500, 750),
-            'synopsis' => fake()->paragraph(1),
-            'release_date' => fake()->date(),
-            'trailer_link' => 'https://youtu.be/jNQXAC9IVRw',
 
+            'title' => $title,
+            'description' => fake()->paragraph(1),
+            'slug' => $title,
         ];
     }
 }
