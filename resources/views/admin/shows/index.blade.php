@@ -9,8 +9,9 @@
                 <img src="{{ $show->movie->poster_link }}" alt="" class=" w-1/3 object-cover">
                 <div class="p-2 ">
                     <h2 class="font-bold text-lg">{{ $show->title }}</h2>
-
-                    <p class="cd_show" data-now="{{ $dateTime }}" data-show_time="{{ $show->date }}">calculating...
+                    <p class="text-red-500 inline">happening in:</p>
+                    <p class="cd_show inline" data-now="{{ $dateTime }}" data-show_time="{{ $show->date }}">
+                        calculating...
                     </p>
                     <x-secondary-button data-trailer="{{ $show->movie->trailer_link }}" x-data=""
                         x-on:click.prevent="openModal(event), $dispatch('open-modal', 'trailer_preview')">Preview
@@ -24,33 +25,38 @@
                             <x-ri-eye-fill />
                         </a>
                         <button class="bg-red-200 dark:bg-red-800 rounded px-2 py-1" x-data=""
-                            x-on:click.prevent=" $dispatch('open-modal', 'confirm-movie-deletion{{ $show->movie->id }}')">
+                            x-on:click.prevent=" $dispatch('open-modal', 'confirm-show-deletion{{ $show->id }}')">
                             <x-ri-delete-bin-5-fill />
                         </button>
 
 
-                        <x-modal name="confirm-movie-deletion{{ $show->movie->id }}" focusable>
-                            <form method="post" action="{{ route('admin.movies.delete', $show->movie->id) }}"
-                                class="p-6">
+                        <x-modal name="confirm-show-deletion{{ $show->id }}" focusable>
+                            <form method="post" action="{{ route('admin.shows.delete', $show->id) }}" class="p-6">
                                 @csrf
                                 @method('delete')
 
                                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                    {{ __('Are you sure you want to delete this movie?') }}
+                                    {{ __('Are you sure you want to delete this Show?') }}
                                 </h2>
-
+                                <p class=" text-red-500">If you delete this show then all the customer that booked that
+                                    show will get a refund</p>
                                 <img id="select_poster_preview" style="height: 5rem"
                                     src="{{ $show->movie->poster_link }}" />
-                                <p>Title: {{ $show->movie->title }} </p>
-                                <p>release date: {{ $show->movie->release_date }}</p>
+                                <p>Title: {{ $show->title }} </p>
+                                <p> date: {{ $show->date }}</p>
 
+                                <p class="text-red-500 inline">happening in:</p>
+                                <p class="cd_show inline" data-now="{{ $dateTime }}"
+                                    data-show_time="{{ $show->date }}">
+                                    calculating...
+                                </p>
                                 <div class="mt-6 flex justify-end">
                                     <x-secondary-button x-on:click="$dispatch('close')">
                                         {{ __('Cancel') }}
                                     </x-secondary-button>
 
                                     <x-danger-button class="ml-3">
-                                        {{ __('Delete Movie') }}
+                                        {{ __('Delete Show') }}
                                     </x-danger-button>
                                 </div>
                             </form>
@@ -119,6 +125,11 @@
     <script>
         // Set the date we're counting down to
 
+        var _second = 1000;
+        var _minute = _second * 60;
+        var _hour = _minute * 60;
+        var _day = _hour * 24;
+
         function countdownTimeStart(element) {
 
             var countDownDate = new Date(element.getAttribute('data-show_time')).getTime();
@@ -135,12 +146,15 @@
 
 
                 // Time calculations for days, hours, minutes and seconds
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                var days = Math.floor(distance / _day);
+                var hours = Math.floor((distance % _day) / _hour);
+                var minutes = Math.floor((distance % _hour) / _minute);
+                var seconds = Math.floor((distance % _minute) / _second);
 
                 // Output the result in an element with id="demo"
-                element.innerHTML = hours + "h " +
+                element.innerHTML = days + "d " +
+                    hours + "h " +
                     minutes + "m " + seconds + "s ";
 
                 // If the count down is over, write some text 

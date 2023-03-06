@@ -11,7 +11,7 @@ class UpdateShowRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->user()->role == 'admin';
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateShowRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', 'max:255'],
+            'date' => ['required', 'date', 'after:30 min'],
         ];
     }
 }

@@ -14,8 +14,8 @@
 
                 </div>
                 <div>
-                    <x-input-label :value="__('Show Date and time')" />
-                    <x-text-input placeholder="Title here" name="date" type="datetime-local" :value="old('date', $show->date)" />
+                    <x-input-label :value="__('Show Date and time (GMT)')" />
+                    <x-text-input name="date" type="datetime-local" :value="old('date', $show->date)" step="any" />
                     <x-input-error class="mt-2" :messages="$errors->get('date')" />
 
                 </div>

@@ -74,7 +74,7 @@ class MovieController extends Controller
         $movie->update($request->validated());
         $movie->genres()->sync($request->genres);
 
-        return redirect(route('admin.movies'))->with('message', 'Movie submitted');
+        return redirect(route('admin.movies'))->with('message', 'Movie Updated');
     }
 
     /**

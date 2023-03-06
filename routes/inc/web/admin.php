@@ -32,6 +32,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/', [ShowController::class, 'index'])->name('admin.shows');
         Route::get('/{show}', [ShowController::class, 'edit'])->name('admin.shows.edit');
         Route::put('/{show}', [ShowController::class, 'update'])->name('admin.shows.update');
+        Route::delete('/{show}', [ShowController::class, 'destroy'])->name('admin.shows.delete');
     });
 });
 

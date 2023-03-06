@@ -66,7 +66,12 @@ class ShowController extends Controller
      */
     public function update(UpdateShowRequest $request, Show $show)
     {
-        //
+
+        // return $request;
+        $show->update($request->validated());
+
+
+        return redirect(route('admin.shows'))->with('message', 'Show Updated');
     }
 
     /**
@@ -74,6 +79,7 @@ class ShowController extends Controller
      */
     public function destroy(Show $show)
     {
-        //
+        $show->delete();
+        return redirect(route('admin.shows'))->with('message', 'Show deleted');
     }
 }
