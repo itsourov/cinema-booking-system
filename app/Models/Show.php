@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Movie;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Show extends Model
 {
@@ -24,4 +25,9 @@ class Show extends Model
     protected $casts = [
         'seat' => 'array',
     ];
+
+    public function movie()
+    {
+        return $this->belongsTo(Movie::class);
+    }
 }

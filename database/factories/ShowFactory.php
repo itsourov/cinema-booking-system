@@ -24,7 +24,7 @@ class ShowFactory extends Factory
         return [
             'movie_id' => $movie->id,
             'title' => $movie->title . " Premier",
-            'date' => Carbon::now()->toDateTimeString(),
+            'date' => Carbon::now()->addHours(rand(3, 12))->addMinute(rand(1, 59))->toDateTimeString(),
         ];
     }
 }

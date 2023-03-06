@@ -4,6 +4,7 @@
 
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ShowController;
 use App\Http\Controllers\Admin\GenreController;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -26,6 +27,11 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/{movie}', [MovieController::class, 'edit'])->name('admin.movies.edit');
         Route::put('/{movie}', [MovieController::class, 'update'])->name('admin.movies.update');
         Route::delete('/{movie}', [MovieController::class, 'destroy'])->name('admin.movies.delete');
+    });
+    Route::prefix('shows')->group(function () {
+        Route::get('/', [ShowController::class, 'index'])->name('admin.shows');
+        Route::get('/{show}', [ShowController::class, 'edit'])->name('admin.shows.edit');
+        Route::put('/{show}', [ShowController::class, 'update'])->name('admin.shows.update');
     });
 });
 

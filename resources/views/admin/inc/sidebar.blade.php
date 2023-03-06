@@ -69,6 +69,23 @@
                         </x-slot>
 
                     </x-admin.sidebar-menu-item>
+                    <x-admin.sidebar-menu-item :active="request()->routeIs('admin.shows*')" :dropdown="true">
+
+                        <x-slot name="icon">
+                            <x-ri-movie-2-line />
+                        </x-slot>
+                        <x-slot name="title">
+                            {{ __('Shows') }}
+                        </x-slot>
+
+                        <x-slot name="submenu">
+                            <x-admin.sidebar-sub-menu-item :href="route('admin.shows')" :active="request()->routeIs('admin.shows')">
+                                View all Shows
+                            </x-admin.sidebar-sub-menu-item>
+
+                        </x-slot>
+
+                    </x-admin.sidebar-menu-item>
 
 
 
