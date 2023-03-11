@@ -31,6 +31,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::prefix('shows')->group(function () {
         Route::get('/', [ShowController::class, 'index'])->name('admin.shows');
         Route::get('/{show}', [ShowController::class, 'edit'])->name('admin.shows.edit');
+        Route::get('/{show}/preview', [ShowController::class, 'show'])->name('admin.shows.show');
         Route::put('/{show}', [ShowController::class, 'update'])->name('admin.shows.update');
         Route::delete('/{show}', [ShowController::class, 'destroy'])->name('admin.shows.delete');
     });
@@ -38,4 +39,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth', 'admin']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
+Route::get('seat2', function () {
+    return view('seat2');
 });

@@ -34,3 +34,4 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/inc/web/auth.php';
 require __DIR__ . '/inc/web/admin.php';
+require __DIR__ . '/inc/web/ticket.php';

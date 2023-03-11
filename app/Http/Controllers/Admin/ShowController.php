@@ -47,7 +47,11 @@ class ShowController extends Controller
      */
     public function show(Show $show)
     {
-        //
+        // return json_decode($show->seat);
+        return view('admin.shows.details', [
+            'show' => $show,
+
+        ]);
     }
 
     /**
@@ -55,6 +59,7 @@ class ShowController extends Controller
      */
     public function edit(Show $show)
     {
+
         return view('admin.shows.edit', [
             'show' => $show,
 

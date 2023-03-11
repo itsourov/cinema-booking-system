@@ -34,6 +34,7 @@
     </main>
 
     @include('inc.footer')
+    @include('inc.message')
     @livewireScripts
     @yield('scripts')
 </body>
