@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('show_id')->constrained();
             $table->json('seat_number');
             $table->string('payment_status')->default('unpaid');
+            $table->string('paid_amount')->nullable();
+            $table->dateTime('payment_time')->nullable();
 
             $table->timestamps();
         });

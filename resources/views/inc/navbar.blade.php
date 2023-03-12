@@ -88,6 +88,12 @@
                 <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                     {{ __('Home') }}
                 </x-nav-link>
+                <x-nav-link :href="route('movies.index')" :active="request()->routeIs('movies.index')">
+                    {{ __('Movies') }}
+                </x-nav-link>
+                <x-nav-link :href="route('ticket.index')" :active="request()->routeIs('ticket.index')">
+                    {{ __('My Tickets') }}
+                </x-nav-link>
 
 
 

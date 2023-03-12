@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('movie_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->dateTime('date');
-            $table->json('seat')->nullable();
+            $table->json('seat');
 
             $table->timestamps();
         });

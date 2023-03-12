@@ -13,6 +13,8 @@ class Ticket extends Model
         'payment_status',
         'user_id',
         'show_id',
+        'paid_amount',
+        'payment_time',
 
 
     ];

@@ -1,5 +1,5 @@
 <div>
-    <div class="container mx-auto px-2">
+    <div class="container mx-auto px-2 my-10">
 
 
         <div class=" w-fit mx-auto space-y-6">

@@ -31,7 +31,8 @@ class ShowFactory extends Factory
             for ($j = 0; $j < 8; $j++) {
                 $status = ['booked', 'available',  'blocked', 'available'];
                 $seat =  new stdClass();
-                $seat->status = $status[rand(0, 3)];
+                // $seat->status = $status[rand(0, 3)];
+                $seat->status = 'available';
                 $seat->price = 300;
 
                 $row->$j = $seat;

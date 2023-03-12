@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ShowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/upload', [UploadController::class, 'destroy']);
 });
 
+
+Route::prefix('movies')->group(function () {
+    Route::get('/', [MovieController::class, 'index'])->name('movies.index');
+    Route::get('/{movie}', [MovieController::class, 'show'])->name('movies.show');
+});
+Route::prefix('shows')->group(function () {
+    Route::get('/', [ShowController::class, 'index'])->name('shows.index');
+    Route::get('/{show}', [ShowController::class, 'show'])->name('shows.show');
+});
 
 require __DIR__ . '/inc/web/auth.php';
 require __DIR__ . '/inc/web/admin.php';

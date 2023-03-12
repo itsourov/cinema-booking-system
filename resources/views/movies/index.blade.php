@@ -1,24 +1,35 @@
-<x-admin-layout>
+<x-app-layout>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-2 mt-6">
-        @foreach ($movies as $movie)
-            <x-admin.movies.movie-card class="" :movie="$movie" :admin="true" />
-        @endforeach
+    <div class="container my-10  mx-auto gap-5 px-2">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+            <div class=" md:col-span-2">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    @foreach ($movies as $movie)
+                        <x-movies.movie-card class="" :movie="$movie" :details="false" />
+                    @endforeach
+                </div>
+                <div class="my-5 p-2">
+                    {{ $movies->appends(Request::all())->onEachSide(1)->links('pagination.tailwind') }}
+                </div>
+
+            </div>
+            <div class=" relative">
+                <div class="sticky top-0">
 
 
+
+                </div>
+
+            </div>
+        </div>
     </div>
-    <div class="my-5 p-2">
-        {{ $movies->appends(Request::all())->onEachSide(1)->links('pagination.tailwind') }}
-    </div>
-
-
     <x-modal name="trailer_preview">
-        <div class="container">
+        <div class="container-div">
             <iframe id="videoLink" frameborder="0" allowfullscreen class="video"></iframe>
         </div>
     </x-modal>
     <style>
-        .container {
+        .container-div {
             position: relative;
             width: 100%;
             height: 0;
@@ -55,5 +66,4 @@
         }
     </script>
 
-
-</x-admin-layout>
+</x-app-layout>

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Show;
 use App\Http\Requests\StoreShowRequest;
 use App\Http\Requests\UpdateShowRequest;
-use App\Models\Show;
 
 class ShowController extends Controller
 {
@@ -37,7 +38,12 @@ class ShowController extends Controller
      */
     public function show(Show $show)
     {
-        //
+
+        $dateTime =  Carbon::now()->toDateTimeString();
+        return view('shows.details', [
+            'show' => $show,
+            'dateTime' => $dateTime,
+        ]);
     }
 
     /**

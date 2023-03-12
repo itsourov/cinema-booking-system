@@ -29,6 +29,12 @@
                         <input type="hidden" name="payment_status" value="paid">
                         <x-primary-button>Make Payment</x-primary-button>
                     </form>
+                    <form action="{{ route('ticket.delete', $ticket->id) }}" method="post">
+                        @method('DELETE')
+                        @csrf
+
+                        <x-danger-button>Delete Ticket</x-danger-button>
+                    </form>
                 @else
                     <form action="{{ route('ticket.update', $ticket->id) }}" method="post">
                         @method('PUT')
@@ -38,10 +44,13 @@
                     </form>
 
                     <div class="flex justify-center">
-                        <x-primary-button class="flex  items-center space-x-2">
-                            <span>Download Ticket</span>
-                            <x-ri-download-2-fill />
-                        </x-primary-button>
+                        <a href="{{ route('ticket.download', $ticket->id) }}">
+                            <x-primary-button class="flex  items-center space-x-2">
+                                <span>Download Ticket</span>
+                                <x-ri-download-2-fill />
+                            </x-primary-button>
+                        </a>
+
                     </div>
                 @endif
 

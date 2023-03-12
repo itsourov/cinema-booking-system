@@ -42,7 +42,7 @@ class TicketBooking extends Component
         ]);
         if ($ticket) {
             session()->flash('message', 'Redirecting to payment page');
-            return redirect()->route('ticket.payment', $ticket->id);
+            return redirect()->route('ticket.show', $ticket->id);
         }
     }
 }

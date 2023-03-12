@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Show;
 use App\Models\Ticket;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
-use App\Models\Show;
 
 class TicketController extends Controller
 {
@@ -15,7 +17,12 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        $dateTime =  Carbon::now()->toDateTimeString();
+        $tickets =   Ticket::where('user_id', auth()->user()->id)->latest()->with('show')->paginate(10);
+        return view('tickets.index', [
+            'tickets' => $tickets,
+            'dateTime' => $dateTime,
+        ]);
     }
 
     /**
@@ -48,7 +55,7 @@ class TicketController extends Controller
 
 
         $dateTime =  Carbon::now()->toDateTimeString();
-        return view('ticket.payment', [
+        return view('tickets.payment', [
             'ticket' => $ticket,
             'dateTime' => $dateTime,
             'price' => $price,
@@ -67,8 +74,81 @@ class TicketController extends Controller
      */
     public function update(UpdateTicketRequest $request, Ticket $ticket)
     {
+        DB::beginTransaction();
         $ticket->update($request->validated());
-        return redirect(route('ticket.show', $ticket->id))->with('message', 'Ticket Payment Done');
+
+
+        $price = 0;
+        foreach ($ticket->seat_number as $key => $seat) {
+            $row = substr($seat, 0, 1);
+            $col = substr($seat, 1, 2);
+            $price += json_decode(Show::where('id', $ticket->show->id)->first()->seat)->$row->$col->price;
+        }
+
+
+        if ($request->payment_status == 'paid') {
+
+
+
+            foreach ($ticket->seat_number as $key => $seat) {
+                $row = substr($seat, 0, 1);
+                $col = substr($seat, 1, 2);
+
+                $json =   json_decode(Show::where('id', $ticket->show->id)->first()->seat);
+
+                if ($json->$row->$col->status != 'available') {
+                    DB::rollBack();
+                    return back()->with('message', 'Ticket ' . $row . $col . ' is no longer available to book');
+                }
+
+                $json->$row->$col->status = "booked";
+                $json->$row->$col->user_id = auth()->user()->id;
+
+
+
+                Show::where('id', $ticket->show->id)->first()->update([
+                    'seat' => json_encode($json),
+
+                ]);
+            }
+
+            $ticket->update([
+                'paid_amount' => $price,
+                'payment_time' => Carbon::now()->toDateTimeString(),
+            ]);
+
+            DB::commit();
+            return back()->with('message', 'Ticket Payment Done');
+        } else {
+            foreach ($ticket->seat_number as $key => $seat) {
+                $row = substr($seat, 0, 1);
+                $col = substr($seat, 1, 2);
+
+                $json =   json_decode(Show::where('id', $ticket->show->id)->first()->seat);
+
+
+
+                if ($json->$row->$col->status != 'booked' || $json->$row->$col->user_id != auth()->user()->id) {
+                    DB::rollBack();
+                    return back()->with('message', 'Ticket ' . $row . $col . ' is invalid');
+                }
+                $json->$row->$col->status = "available";
+                $json->$row->$col->user_id = '';
+
+
+                Show::where('id', $ticket->show->id)->first()->update([
+                    'seat' => json_encode($json),
+
+                ]);
+            }
+
+            $ticket->update([
+                'paid_amount' => null,
+                'payment_time' => null,
+            ]);
+            DB::commit();
+            return back()->with('message', 'Ticket Cancled ');
+        }
     }
 
     /**
@@ -76,6 +156,18 @@ class TicketController extends Controller
      */
     public function destroy(Ticket $ticket)
     {
-        //
+        $ticket->delete();
+        return redirect(route('ticket.index'))->with('message', 'Ticket Deleted');
+    }
+
+    public function download(Ticket $ticket)
+    {
+
+        $ticket =  $ticket->loadMissing(['user', 'show.movie']);
+        // return $ticket;
+        $pdf = Pdf::loadView('tickets.pdf', [
+            "data" => json_encode($ticket),
+        ]);
+        return $pdf->stream();
     }
 }

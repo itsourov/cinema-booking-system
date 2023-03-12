@@ -8,6 +8,7 @@
         "php": "^8.1",
         "aalaap/faker-youtube": "^2.0",
         "andreiio/blade-remix-icon": "^1.2",
+        "barryvdh/laravel-dompdf": "^2.0",
         "blade-ui-kit/blade-icons": "^1.5",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.0",
