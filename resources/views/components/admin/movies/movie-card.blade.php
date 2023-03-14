@@ -23,6 +23,8 @@
               </button>
 
 
+
+
               <x-modal name="confirm-movie-deletion{{ $movie->id }}" focusable>
                   <form method="post" action="{{ route('admin.movies.delete', $movie->id) }}" class="p-6">
                       @csrf
@@ -50,6 +52,9 @@
                   </form>
               </x-modal>
           </div>
+          <a href="{{ route('admin.shows.create', $movie->id) }}">
+              <x-primary-button class="mt-4">Make a new show</x-primary-button>
+          </a>
           @foreach ($movie->genres as $genre)
               <span
                   class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">{{ $genre->title }}</span>

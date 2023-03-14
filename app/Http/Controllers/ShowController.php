@@ -14,7 +14,14 @@ class ShowController extends Controller
      */
     public function index()
     {
-        //
+        $dateTime =  Carbon::now()->toDateTimeString();
+
+        $shows = Show::upcoming()->with('movie')->paginate(10);
+
+        return view('shows.index', [
+            'shows' => $shows,
+            'dateTime' => $dateTime,
+        ]);
     }
 
     /**

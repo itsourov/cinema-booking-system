@@ -1,26 +1,13 @@
 <x-app-layout>
 
     <div class="container my-10  mx-auto gap-5 px-2">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
-            <div class=" md:col-span-2">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    @foreach ($movies as $movie)
-                        <x-movies.movie-card class="" :movie="$movie" :details="false" />
-                    @endforeach
-                </div>
-                <div class="my-5 p-2">
-                    {{ $movies->appends(Request::all())->onEachSide(1)->links('pagination.tailwind') }}
-                </div>
-
-            </div>
-            <div class=" relative">
-                <div class="sticky top-0">
-
-
-
-                </div>
-
-            </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            @foreach ($movies as $movie)
+                <x-movies.movie-card class="" :movie="$movie" :details="false" />
+            @endforeach
+        </div>
+        <div class="my-5 p-2">
+            {{ $movies->appends(Request::all())->onEachSide(1)->links('pagination.tailwind') }}
         </div>
     </div>
     <x-modal name="trailer_preview">

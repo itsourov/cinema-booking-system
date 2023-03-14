@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Models\Movie;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -18,14 +19,13 @@ class Show extends Model
         'seat',
 
     ];
-    // public function seat(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn ($value) => json_decode($value, true),
-    //         set: fn ($value) => json_encode($value),
-    //     );
-    // }
 
+    public function scopeUpcoming($query)
+    {
+
+
+        $query->whereDate('date', '>=', Carbon::now())->oldest('date');
+    }
 
     /**
      * The attributes that should be cast.

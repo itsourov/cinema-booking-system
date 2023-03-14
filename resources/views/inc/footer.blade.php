@@ -4,8 +4,7 @@
             <img src="{{ asset('/images/logo.png') }}" class="h-8 mr-2" alt=" Logo" />
 
         </a>
-        <p class="my-6 text-gray-500 dark:text-gray-400">Here you will find the best tips and tutorials about most
-            things.</p>
+        <p class="my-6 text-gray-500 dark:text-gray-400">Movie site</p>
         {{-- <ul class="flex flex-wrap justify-center items-center mb-6 text-gray-900 dark:text-white">
             <li>
                 <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>

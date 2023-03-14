@@ -5,6 +5,7 @@
         <div class="grid grid-cols-3 gap-4 my-10">
             @foreach ($tickets as $ticket)
                 <x-card class="p-2">
+                    <p class="text-center font-bold  text-xl">#{{ $ticket->id }}</p>
                     <p>Movie Name: <a href="{{ route('movies.show', $ticket->show->movie->id) }}"
                             class=" font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ $ticket->show->movie->title }}</a>
                     </p>
@@ -18,6 +19,9 @@
                             calculating...
                         </span>
                     </p>
+                    <p>Payment Status: <span class=" font-bold">{{ $ticket->payment_status }}</span>
+                    <p>Paid Amount: <span class=" font-bold">{{ $ticket->paid_amount }}</span>
+                    <p>Seat number: <span class=" font-bold">{{ json_encode($ticket->seat_number) }}</span>
 
                     <div class="text-center mt-5">
                         @if ($ticket->payment_status != 'paid')

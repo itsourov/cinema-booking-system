@@ -14,7 +14,11 @@ class MovieController extends Controller
     public function index()
     {
         return view('movies.index', [
-            'movies' => Movie::filter(['genre' => request('genre')])->withCount('shows')->latest()->paginate(10),
+            'movies' => Movie::filter(['genre' => request('genre')])->withCount([
+                'shows' => function ($query) {
+                    $query->upcoming();
+                }
+            ])->latest()->paginate(10),
         ]);
     }
 
@@ -40,7 +44,15 @@ class MovieController extends Controller
     public function show(Movie $movie)
     {
 
-        $movie = $movie->loadMissing('shows')->loadCount('shows');
+        $movie = $movie->loadMissing([
+            'shows' => function ($query) {
+                $query->upcoming();
+            }
+        ])->loadCount([
+            'shows' => function ($query) {
+                $query->upcoming();
+            }
+        ]);
         // return $movie;
         return view('movies.details', [
             'movie' => $movie,

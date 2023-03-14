@@ -82,6 +82,12 @@
                             <x-admin.sidebar-sub-menu-item :href="route('admin.shows')" :active="request()->routeIs('admin.shows')">
                                 View all Shows
                             </x-admin.sidebar-sub-menu-item>
+                            <x-admin.sidebar-sub-menu-item :href="route('admin.shows.upcoming')" :active="request()->routeIs('admin.shows.upcoming')">
+                                Upcoming Shows
+                            </x-admin.sidebar-sub-menu-item>
+                            <x-admin.sidebar-sub-menu-item :href="route('admin.shows.create.guide')" :active="request()->routeIs('admin.shows.create.guide')">
+                                Create Shows
+                            </x-admin.sidebar-sub-menu-item>
 
                         </x-slot>
 

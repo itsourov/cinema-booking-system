@@ -20,6 +20,7 @@ class TicketBooking extends Component
     {
         return view('livewire.shows.ticket-booking');
     }
+
     public function countPrice()
     {
 
@@ -32,6 +33,10 @@ class TicketBooking extends Component
     }
     public function makeTicket()
     {
+
+        if (!auth()->user()) {
+            return redirect()->route('login');
+        }
         $seatNumbers = $this->seats;
 
 

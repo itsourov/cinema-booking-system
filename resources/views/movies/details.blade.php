@@ -12,7 +12,7 @@
             <div class=" relative">
                 <div class="sticky top-0">
 
-                    <h2>Available Shows:</h2>
+                    <h2>Upcoming Show:</h2>
                     <div class="space-y-2">
                         @foreach ($movie->shows as $show)
                             <div class="border rounded ">

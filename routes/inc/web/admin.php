@@ -30,6 +30,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     });
     Route::prefix('shows')->group(function () {
         Route::get('/', [ShowController::class, 'index'])->name('admin.shows');
+        Route::get('/upcoming', [ShowController::class, 'upcoming'])->name('admin.shows.upcoming');
+        Route::get('/create', [ShowController::class, 'createGuide'])->name('admin.shows.create.guide');
+        Route::get('/create/{movie}', [ShowController::class, 'create'])->name('admin.shows.create');
+        Route::post('/create/{movie}', [ShowController::class, 'store']);
         Route::get('/{show}', [ShowController::class, 'edit'])->name('admin.shows.edit');
         Route::get('/{show}/preview', [ShowController::class, 'show'])->name('admin.shows.show');
         Route::put('/{show}', [ShowController::class, 'update'])->name('admin.shows.update');
