@@ -32,8 +32,8 @@ jobs:
         script: |
           cd /home/u440599207/domains/itsourov.com/public_html/subdomain/cbs
           php artisan down
-          cp .env.example .env
-          php artisan key:generate
+          # cp .env.example .env
+          # php artisan key:generate
           php -r "readfile('https://getcomposer.org/installer');" | php -c php.ini
           php composer.phar install --no-interaction --prefer-dist --optimize-autoloader
           php artisan migrate
